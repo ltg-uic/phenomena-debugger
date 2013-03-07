@@ -1,7 +1,6 @@
 package ltg.ps.phenomena;
 
 import ltg.ps.PhenomenaServer;
-import ltg.ps.api.phenomena.Phenomena;
 import ltg.ps.server.ConfFile;
 
 import org.slf4j.Logger;
@@ -19,20 +18,20 @@ public class PhenomenaDebugger {
 		isConfigured = true;
 	}
 	
-	public static void debug(Class<? extends Phenomena> p) {
+	public static void debug(String phenomenaJarFile) {
 		if (!isConfigured) {
 			log.error("Impossible to start debugger without configuring it. \n " +
 					"Plase call PhenomenaDebugger.configure(String xmpp_username, String xmpp_password) first!");
 			return;
 		}
 		log.info("Creating a new instinstance of Phenomena Server");
-		PhenomenaServer.getInstance().start(configuration);
+		PhenomenaServer.getInstance().start(phenomenaJarFile, configuration);
 	}
 	
 	
-	public static void debug(Class<? extends Phenomena> p, boolean online) {
+	public static void debug(String phenomenaJarFile, boolean online) {
 		if (online) { 
-			debug(p);
+			debug(phenomenaJarFile);
 			return;
 		}
 		log.warn("Offline debugging is not yet supported");
